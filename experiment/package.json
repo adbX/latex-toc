@@ -1,0 +1,19 @@
+{
+  "name": "latex-toc-backend-experiment-host",
+  "displayName": "LaTeX TOC Backend Experiment",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "publisher": "adbX",
+  "license": "MIT",
+  "engines": { "vscode": "^1.140.0" },
+  "main": "./out/extension.cjs",
+  "activationEvents": ["onCommand:latexTocExperiment.inspect"],
+  "capabilities": {
+    "virtualWorkspaces": { "supported": false },
+    "untrustedWorkspaces": { "supported": false }
+  },
+  "contributes": {
+    "commands": [{ "command": "latexTocExperiment.inspect", "title": "LaTeX TOC Experiment: Inspect Root" }]
+  }
+}

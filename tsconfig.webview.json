@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "types": ["svelte"],
+    "lib": ["ES2024", "DOM", "DOM.Iterable"]
+  },
+  "include": ["src/webview/**/*.ts", "src/webview/**/*.svelte"],
+  "exclude": []
+}

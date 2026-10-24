@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "LaTeX TOC isolated host (choose a synthetic workspace)",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "--user-data-dir=${workspaceFolder}/.host/debug/user-data",
+        "--extensions-dir=${workspaceFolder}/.host/debug/extensions",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--skip-welcome",
+        "--skip-release-notes",
+        "${input:syntheticWorkspace}"
+      ],
+      "outFiles": ["${workspaceFolder}/dist/**/*.cjs"],
+      "preLaunchTask": "Build LaTeX TOC"
+    }
+  ],
+  "inputs": [
+    { "id": "syntheticWorkspace", "type": "promptString", "description": "Absolute path to a synthetic-only folder or .code-workspace file" }
+  ]
+}

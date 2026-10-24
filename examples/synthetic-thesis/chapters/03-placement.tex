@@ -1,0 +1,41 @@
+\chapter{Sensor placement under constrained budgets: Comparing greedy coverage and outage-aware selection in branching networks}\label{demo-placement}
+Placement is treated as a sequence of explicit choices. We compare a downstream baseline with a greedy coverage rule, then examine what changes when unavailable sensors are part of the design rather than a surprise at evaluation time.
+\section{Defining sensor coverage without conflating detection delay and source attribution}\label{demo-placement-objective}
+For a set of sensors, coverage is the fraction of scheduled source pulses observed at least once before the final tick. Multiple detections of one pulse do not increase that fraction.
+\subsection{Balancing warning delay and branch coverage when downstream readings cannot distinguish source events}\label{demo-placement-coverage}
+A broad footprint can be useful even when attribution is poor. We therefore keep coverage and warning delay as separate outputs rather than hiding their tension in an unexplained weighted score. Simultaneous pulses are discussed as a limitation, not evaluated as if the single-pulse experiment had resolved them.
+\subsubsection{Resolving equal coverage gains through warning delay and a stable candidate ordering}\label{demo-placement-ties}
+When two candidate sites add the same coverage, the rule chooses the one with smaller mean arrival delay. A remaining tie is resolved by the fixed local node order. This last rule ensures a repeatable example, not a scientific preference for a label.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lrrl}
+\hline
+Candidate & Added pulses & Mean delay & Decision \\
+\hline
+Upper fork & 2 & 2 & Select \\
+Lower fork & 2 & 4 & Defer \\
+Outlet & 1 & 5 & Defer \\
+\hline
+\end{tabular}
+\caption{An illustrative greedy step: delay resolves a coverage tie.}\label{demo-tab-ties}
+\end{table}
+\section{Baselines}\label{demo-placement-baselines}
+The outlet-only baseline spends one sensor at the last node. A spaced-stem baseline fills the budget along the main stem at approximately equal graph distances. Both are intentionally simple enough to inspect without specialised optimisation software.
+\subsection{Incremental sensor selection}\label{demo-placement-greedy}
+The greedy rule evaluates each remaining candidate against the currently selected set, adds the best candidate, and repeats until the budget is exhausted. A selected site cannot be selected again. The procedure makes no claim of global optimality under the combined tie-breaking rule.
+\begin{figure}[htbp]
+\centering
+\fbox{\begin{minipage}{0.8\linewidth}
+Start with no sensors.\\[4pt]
+Compare the additional covered pulses at each unused site.\\[4pt]
+Choose by coverage, then delay, then local order.\\[4pt]
+Stop when the fixed budget is spent.
+\end{minipage}}
+\caption{The explicit selection sequence used in the worked examples.}\label{demo-fig-selection}
+\end{figure}
+\subsection{Accounting for sensor outages in the placement objective}\label{demo-placement-outages}
+A resilience variant scores each candidate across a small list of availability masks. Each mask removes a sensor reading rather than deleting a river node, so water transport remains unchanged.
+\subsubsection{Outage masks}\label{demo-placement-masks}
+The masks include all sensors available and each single-sensor outage. Equal mask weights are an illustrative assumption. They are not estimated failure probabilities and should not be read as reliability measurements.
+\section{Computational cost of comparing candidate sites across repeated placement steps}\label{demo-placement-cost}
+For each placement step, the rule compares unused sites against a fixed event list. Precomputed arrival relationships avoid repeating the graph walk for every candidate. This observation concerns the proposed algorithm; no benchmark timings are claimed here.

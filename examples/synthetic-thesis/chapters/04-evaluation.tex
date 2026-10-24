@@ -1,0 +1,36 @@
+\chapter{Illustrative comparisons: Separating source coverage from observation delay when sensor readings are unavailable}\label{demo-evaluation}
+This chapter uses hand-authored numbers to demonstrate reporting structure. The values are internally described examples, not outputs from an implemented simulator, experiments on real water, or estimates of field performance.
+\section{Experimental comparison protocol}\label{demo-evaluation-protocol}
+Each comparison holds the world, pulse schedule, and budget fixed. Only the placement rule changes. A separate comparison changes the world while retaining the rule; mixing these two operations would obscure the reason for a difference.
+\subsection{Coverage and delay metrics}\label{demo-evaluation-metrics}
+Coverage counts observed pulses out of four scheduled pulses in the miniature example. Mean delay is reported only for observed pulses. A method missing most pulses must not be praised solely for a low conditional delay.
+\subsubsection{Denominators}\label{demo-evaluation-denominators}
+The count of observed pulses accompanies every coverage fraction. Unobserved pulses have no finite observed delay, so they remain visible in the count rather than being silently removed from the comparison.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lrrr}
+\hline
+Rule, budget two & Observed pulses & Coverage & Mean delay \\
+\hline
+Spaced stem & 3 of 4 & 0.75 & 4.0 \\
+Greedy branches & 4 of 4 & 1.00 & 3.0 \\
+Resilience variant & 4 of 4 & 1.00 & 3.5 \\
+\hline
+\end{tabular}
+\caption{Invented reporting example for four pulses: coverage and conditional delay are shown together.}\label{demo-tab-results}
+\end{table}
+\section{Evaluating downstream backup observations when upstream sensor readings become unavailable}\label{demo-evaluation-outages}
+Removing the sole reading from one branch can reveal whether another sensor provides a downstream opportunity. The imagined outage comparison holds the pulse schedule fixed and changes only availability.
+\begin{figure}[htbp]
+\centering
+\NetworkDiagram{Unavailable site}{Available site}{Backup reading}
+\caption{Illustrative outage scenario in which a missing upstream reading leaves a downstream backup available, preserving event coverage while delaying the first observation and reducing the ability to attribute a pulse to its original tributary.}\label{demo-fig-outages}
+\end{figure}
+\subsection{Recovery}\label{demo-evaluation-recovery}
+Recovery here means retaining at least one observation of a pulse. It does not mean repairing an instrument or reconstructing its missing concentration series. This narrow definition prevents a coverage result from implying a maintenance capability.
+\section{Consistency checks}\label{demo-evaluation-checks}
+The example fractions agree with their counts, and the reported delays use only observed pulses. These are necessary reporting checks but do not validate the transport model against reality.
+\subsection{Sensitivity to observation-window boundaries}\label{demo-evaluation-sensitivity}
+Shortening the observation window can remove late detections without changing any sensor location. A future implementation should report this sensitivity separately from outage sensitivity because the two mechanisms have different interpretations.
+\subsubsection{Candidate-order sensitivity}\label{demo-evaluation-order}
+If candidate labels are permuted, only exact ties should change the selected set. A change outside a tie would signal dependence on bookkeeping rather than on the stated objective.

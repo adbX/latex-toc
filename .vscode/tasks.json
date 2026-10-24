@@ -1,0 +1,6 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "Build LaTeX TOC", "type": "npm", "script": "build", "problemMatcher": "$tsc" }
+  ]
+}

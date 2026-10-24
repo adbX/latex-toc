@@ -1,0 +1,34 @@
+\chapter{Introduction}\label{demo-framing}
+A sensor can only report the water that reaches it. In a branching river, this simple fact creates a placement problem: a downstream instrument may observe many sources but conceal where a disturbance began. This chapter defines the imagined problem without borrowing a field site or a real monitoring record.
+\section{Research questions and objectives}\label{demo-framing-question}
+We ask how a small instrument budget should be distributed across branches when disturbances travel downstream and observations can fail. The target is a transparent decision procedure, not a prediction for an existing watershed.
+\subsection{Scope of the tracer model}\label{demo-framing-scope}
+The experiment concerns a dissolved tracer with an arbitrary unit of concentration. No toxicity threshold is implied. All candidate sites are assumed accessible and equally costly unless a scenario explicitly changes that assumption.
+\subsection{Event detection criteria}\label{demo-framing-evidence}
+An event is detected when a simulated concentration exceeds a fixed threshold at an available sensor. We record event coverage separately from arrival delay so that late detection cannot masquerade as prompt warning.
+\section{Representing downstream transport through branching networks with shared observation sites}\label{demo-framing-network}
+Edges point downstream. A node may receive two upstream flows, but no edge returns water to an ancestor. This excludes tides and recirculating reservoirs by construction.
+\begin{figure}[htbp]
+\centering
+\NetworkDiagram{West branch}{East branch}{Outlet}
+\caption{An invented two-branch river, with a confluence and one downstream observation site.}\label{demo-fig-network}
+\end{figure}
+\subsection{Synthetic measurement units}\label{demo-framing-units}
+Distance is measured in synthetic reaches and time in ticks. A reach has no fixed conversion to kilometres; a tick has no fixed conversion to hours. These choices prevent unwarranted geographic interpretation.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\hline
+Symbol & Meaning & Illustrative range \\
+\hline
+$n$ & Candidate sites & 7--31 \\
+$b$ & Sensor budget & 1--5 \\
+$t$ & Arrival tick & 0--24 \\
+\hline
+\end{tabular}
+\caption{Symbols used throughout the fictional experiment.}\label{demo-tab-symbols}
+\end{table}
+\section{Scope and limitations}\label{demo-framing-boundaries}
+An efficient arrangement on a graph is not necessarily a feasible deployment. Power, access permissions, maintenance, and habitat disturbance remain outside the simulated objective.
+\subsection{Consistency checks}\label{demo-framing-checks}
+The first check is conceptual: every numerical statement must identify the simulated world that produced it. Where the thesis uses a hand-worked example rather than a computed trial, that distinction is made explicit.

@@ -1,0 +1,34 @@
+\chapter{Imaginary catchments: Constructing branching networks with controlled transport and release conditions}\label{demo-worlds}
+The simulated worlds vary one structural property at a time. A balanced tree contrasts with a long main stem receiving short tributaries. Neither is intended as a map of a particular place.
+\section{Generating contrasting catchments with comparable source counts and different travel paths}\label{demo-worlds-topology}
+Each family begins with an outlet and adds upstream branches under a fixed depth limit. Node identifiers are local labels rather than geographic coordinates. Relabelling nodes must leave the physical interpretation unchanged.
+\subsection{Balanced tributary networks}\label{demo-worlds-balanced}
+A balanced network gives comparable path lengths to most headwaters. It is useful for isolating the value of branch diversity because no tributary dominates travel time by design.
+\begin{figure}[htbp]
+\centering
+\NetworkDiagram{Equal length}{Equal length}{Shared reach}
+\caption{Balanced tributaries isolate the effect of sharing a downstream reach.}\label{demo-fig-balanced}
+\end{figure}
+\subsection{Asymmetric travel paths along an extended main stem}\label{demo-worlds-stem}
+The contrasting network places most travel distance along one stem. Short side branches arrive at different positions, allowing a sensor near the outlet to have broad coverage but uneven warning times.
+\section{Transport and mixing assumptions}\label{demo-worlds-transport}
+A pulse moves one reach per tick in the simplest world. At a confluence, incoming concentrations are combined using equal weights. The model intentionally omits dispersion and chemical reactions.
+\subsection{Separating source releases across non-overlapping trials}\label{demo-worlds-pulses}
+One pulse is released at each eligible source, with trials separated sufficiently to avoid overlap. This schedule tests source coverage rather than the separation of simultaneous disturbances.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lrrr}
+\hline
+World & Sites & Maximum depth & Pulses \\
+\hline
+Balanced miniature & 7 & 3 & 4 \\
+Stem miniature & 9 & 6 & 4 \\
+Wide miniature & 13 & 4 & 8 \\
+\hline
+\end{tabular}
+\caption{Hand-specified miniature worlds; values are illustrative design choices, not sampled river statistics.}\label{demo-tab-worlds}
+\end{table}
+\subsubsection{Final ticks}\label{demo-worlds-boundary}
+A pulse arriving exactly at the final observation tick is counted as observed. This inclusive convention matters for long paths and is held constant across all placement methods.
+\section{Consistency checks}\label{demo-worlds-checks}
+A valid world has exactly one outlet and a downstream path from every source to that outlet. The miniature examples can be inspected by tracing arrows; larger worlds would require the same conditions to be checked mechanically.

@@ -1,0 +1,11 @@
+{
+  "name": "latex-toc-host-driver",
+  "publisher": "adbX",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "engines": { "vscode": "^1.85.0" },
+  "main": "./out/extension.cjs",
+  "activationEvents": ["onStartupFinished"],
+  "capabilities": { "untrustedWorkspaces": { "supported": false } }
+}

@@ -1,0 +1,305 @@
+{
+  "name": "latex-toc",
+  "version": "0.0.0",
+  "displayName": "LaTeX TOC",
+  "description": "Source-based project navigation for local LaTeX documents.",
+  "publisher": "adbX",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adbX/latex-toc.git"
+  },
+  "homepage": "https://github.com/adbX/latex-toc#readme",
+  "bugs": {
+    "url": "https://github.com/adbX/latex-toc/issues"
+  },
+  "author": "Adhithya Bhaskar",
+  "icon": "assets/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "main": "./dist/extension.cjs",
+  "extensionKind": [
+    "workspace"
+  ],
+  "activationEvents": [
+    "onLanguage:latex",
+    "onLanguage:tex"
+  ],
+  "capabilities": {
+    "virtualWorkspaces": {
+      "supported": false
+    },
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Source handling has not completed the Restricted Mode audit."
+    }
+  },
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "latexToc.outline",
+          "name": "LaTeX TOC"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "latexToc.chooseRoot",
+        "title": "Choose Project Root",
+        "category": "LaTeX TOC"
+      },
+      {
+        "command": "latexToc.selectPalette",
+        "title": "Select Palette",
+        "category": "LaTeX TOC"
+      },
+      {
+        "command": "latexToc.importPalette",
+        "title": "Import Palette",
+        "category": "LaTeX TOC"
+      },
+      {
+        "command": "latexToc.resetColorOverrides",
+        "title": "Reset Color Overrides",
+        "category": "LaTeX TOC"
+      },
+      {
+        "command": "latexToc.toggleFollowEditor",
+        "title": "Toggle Editor Following",
+        "category": "LaTeX TOC",
+        "toggled": "config.latexToc.followEditor"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "latexToc.chooseRoot",
+          "when": "view == latexToc.outline",
+          "group": "project@1"
+        },
+        {
+          "command": "latexToc.selectPalette",
+          "when": "view == latexToc.outline",
+          "group": "appearance@1"
+        },
+        {
+          "command": "latexToc.importPalette",
+          "when": "view == latexToc.outline",
+          "group": "appearance@2"
+        },
+        {
+          "command": "latexToc.resetColorOverrides",
+          "when": "view == latexToc.outline",
+          "group": "appearance@3"
+        },
+        {
+          "command": "latexToc.toggleFollowEditor",
+          "when": "view == latexToc.outline",
+          "group": "project@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "LaTeX TOC",
+      "properties": {
+        "latexToc.followEditor": {
+          "type": "boolean",
+          "default": true,
+          "scope": "window",
+          "description": "Follow the active LaTeX project and caret. Disable to pin the current project and selection; explicit outline navigation remains available."
+        },
+        "latexToc.indentPx": {
+          "type": "integer",
+          "default": 16,
+          "minimum": 8,
+          "maximum": 32,
+          "scope": "resource",
+          "description": "CSS pixels of indentation per displayed hierarchy level. Changes preserve navigation and view state."
+        },
+        "latexToc.palette": {
+          "type": "string",
+          "default": "purple-red-green-muted",
+          "minLength": 1,
+          "maxLength": 80,
+          "scope": "resource",
+          "description": "Built-in or profile-local imported palette name. Selecting a palette preserves individual color overrides. Missing palettes are reported in the sidebar."
+        },
+        "latexToc.visibleRanks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["part", "chapter", "section", "subsection", "subsubsection", "paragraph", "subparagraph"]
+          },
+          "uniqueItems": true,
+          "default": ["chapter", "section", "subsection", "subsubsection"],
+          "scope": "resource",
+          "description": "Heading ranks to display, in source order regardless of this list's order. Hidden ranks retain numbering, source targets, full ancestry, and semantic chapter scope. An empty list hides all heading rows."
+        },
+        "latexToc.sectionCommands": {
+          "type": "object",
+          "default": {},
+          "propertyNames": {
+            "pattern": "^[A-Za-z]+(?![\\s\\S])",
+            "not": {
+              "enum": ["part", "chapter", "section", "subsection", "subsubsection", "paragraph", "subparagraph", "documentclass", "input", "include", "appendix", "setcounter", "caption", "begin", "end", "verb", "newcommand", "renewcommand", "providecommand", "def", "gdef", "edef", "xdef", "let"]
+            }
+          },
+          "additionalProperties": {
+            "type": "string",
+            "enum": ["part", "chapter", "section", "subsection", "subsubsection", "paragraph", "subparagraph"]
+          },
+          "scope": "resource",
+          "description": "Custom section command names mapped to semantic ranks. Names contain ASCII letters only, without a leading backslash; standard headings and structural commands cannot be remapped. Aliases use the parser's star, optional short title, and mandatory title arguments; arbitrary macro expansion is not supported."
+        },
+        "latexToc.colors.light.part": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Light-theme Part color override. Hex only; null inherits the selected palette or effective Chapter color. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.light.chapter": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Light-theme Chapter color override. Hex only; null inherits the selected palette. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.light.section": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Light-theme Section color override. Hex only; null inherits the selected palette. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.light.subsection": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Light-theme Subsection color override. Hex only; null inherits the selected palette. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.light.subsubsection": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Light-theme Subsubsection color override. Hex only; null inherits the selected palette. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.light.paragraph": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Light-theme Paragraph color override. Hex only; null inherits the selected palette or effective Subsubsection color. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.light.subparagraph": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Light-theme Subparagraph color override. Hex only; null inherits the selected palette or effective Subsubsection color, not Paragraph. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.dark.part": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Dark-theme Part color override. Hex only; null inherits the selected palette or effective Chapter color. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.dark.chapter": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Dark-theme Chapter color override. Hex only; null inherits the selected palette. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.dark.section": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Dark-theme Section color override. Hex only; null inherits the selected palette. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.dark.subsection": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Dark-theme Subsection color override. Hex only; null inherits the selected palette. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.dark.subsubsection": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Dark-theme Subsubsection color override. Hex only; null inherits the selected palette. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.dark.paragraph": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Dark-theme Paragraph color override. Hex only; null inherits the selected palette or effective Subsubsection color. Ignored in high-contrast themes."
+        },
+        "latexToc.colors.dark.subparagraph": {
+          "type": ["string", "null"],
+          "default": null,
+          "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "scope": "resource",
+          "description": "Dark-theme Subparagraph color override. Hex only; null inherits the selected palette or effective Subsubsection color, not Paragraph. Ignored in high-contrast themes."
+        },
+        "latexToc.texDirs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "scope": "resource",
+          "description": "Additional input/include search directories, resolved relative to the selected root file after the including-file and root directories. This does not widen automatic root discovery."
+        }
+      }
+    }
+  },
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "files": [
+    "dist/extension.cjs",
+    "dist/webview/index.js",
+    "dist/webview/style.css",
+    "dist/THIRD-PARTY-LICENSES.txt",
+    "third-party/LaTeX-Workshop-LICENSE.txt",
+    "third-party/Lucide-LICENSE.txt",
+    "LICENSE",
+    "assets/icon.png",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "svelte-check --tsconfig tsconfig.webview.json --fail-on-warnings && tsc && node build.mjs",
+    "vscode:prepublish": "npm run build",
+    "package": "vsce package --no-dependencies --githubBranch main --out dist/latex-toc.vsix",
+    "package:files": "vsce ls --no-dependencies",
+    "test": "node --test dist/test/*.test.js",
+    "inspect": "node dist/experiment/inspect.js",
+    "host": "node scripts/launch.mjs",
+    "host:backend": "node experiment/launch.mjs"
+  },
+  "dependencies": {
+    "@unified-latex/unified-latex-util-parse": "1.8.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/vscode": "1.85.0",
+    "@unified-latex/unified-latex-types": "1.8.4",
+    "@vscode/vsce": "4.0.0",
+    "esbuild": "^0.28.1",
+    "esbuild-svelte": "^0.9.5",
+    "svelte": "^5.57.2",
+    "svelte-check": "^4.7.7",
+    "typescript": "6.0.3"
+  }
+}

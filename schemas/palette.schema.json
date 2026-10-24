@@ -1,0 +1,42 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "LaTeX TOC hierarchy palette",
+    "description": "Hierarchy colors only. Light is required; omitted dark colors use the built-in dark branch. Missing part inherits chapter; missing paragraph and subparagraph inherit subsubsection, including explicit parent overrides.",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["version", "name", "light"],
+    "properties": {
+        "version": { "const": 1 },
+        "name": {
+            "type": "string",
+            "description": "Trimmed name of 1–80 characters without control characters. Names are case-insensitive within the library; built-in names cannot be replaced.",
+            "allOf": [
+                { "pattern": "^\\s*\\S(?:[\\s\\S]{0,78}\\S)?\\s*$" },
+                { "not": { "pattern": "[\\u0000-\\u001f\\u007f-\\u009f]" } }
+            ]
+        },
+        "light": { "$ref": "#/$defs/colors" },
+        "dark": { "$ref": "#/$defs/colors" }
+    },
+    "$defs": {
+        "color": {
+            "type": "string",
+            "description": "Hex RGB or RGBA, expanded on import to lowercase #rrggbbaa.",
+            "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})(?![\\s\\S])"
+        },
+        "colors": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["chapter", "section", "subsection", "subsubsection"],
+            "properties": {
+                "part": { "$ref": "#/$defs/color" },
+                "chapter": { "$ref": "#/$defs/color" },
+                "section": { "$ref": "#/$defs/color" },
+                "subsection": { "$ref": "#/$defs/color" },
+                "subsubsection": { "$ref": "#/$defs/color" },
+                "paragraph": { "$ref": "#/$defs/color" },
+                "subparagraph": { "$ref": "#/$defs/color" }
+            }
+        }
+    }
+}

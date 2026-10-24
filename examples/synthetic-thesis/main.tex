@@ -1,0 +1,39 @@
+\documentclass[11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[margin=30mm]{geometry}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+% Fixture convention: one standard heading or caption with a label per line.
+% Plain titles deliberately contain no TeX markup or escaped characters.
+\newcommand{\NetworkDiagram}[3]{%
+  \setlength{\unitlength}{1mm}%
+  \begin{picture}(100,35)
+    \put(5,28){\circle*{2}}\put(5,28){\vector(2,-1){38}}
+    \put(5,5){\circle*{2}}\put(5,5){\vector(2,1){38}}
+    \put(48,17){\circle*{3}}\put(48,17){\vector(1,0){42}}
+    \put(8,30){\makebox(0,0)[l]{#1}}
+    \put(8,2){\makebox(0,0)[l]{#2}}
+    \put(65,22){\makebox(0,0)[l]{#3}}
+    \put(92,17){\circle{4}}
+  \end{picture}%
+}
+\title{Listening to Imaginary Rivers\\Sensor Placement in Simulated Branching Networks}
+\author{Mira Fenwick\\Synthetic Research Design Laboratory}
+\date{October 2026\\Original fictional thesis fixture}
+\begin{document}
+\maketitle
+\begin{abstract}
+This fictional research thesis develops a reproducible thought experiment for placing environmental sensors in simulated river networks. A small directed network represents tributaries, confluences, and downstream travel. Candidate sensors are compared using coverage, delay, and resilience to missing observations. Every network, measurement, and numerical result is invented for this document; none describes an actual river, field campaign, institution, or published study. The purpose is to connect a coherent research narrative to inspectable source files and a local source-navigation interface. The proposed comparison suggests, within its illustrative assumptions only, that protecting distinct upstream branches can be more useful than concentrating sensors near a single outlet. The thesis separates such conditional observations from claims that would require real calibration and field evidence.
+\end{abstract}
+\tableofcontents
+\listoffigures
+\listoftables
+\input{chapters/01-framing.tex}
+\input{chapters/02-worlds.tex}
+\input{chapters/03-placement.tex}
+\input{chapters/04-evaluation.tex}
+\input{chapters/05-interpretation.tex}
+\input{chapters/06-outlook.tex}
+\appendix
+\input{chapters/appendix.tex}
+\end{document}

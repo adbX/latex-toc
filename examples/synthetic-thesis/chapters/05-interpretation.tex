@@ -1,0 +1,37 @@
+\chapter{Interpreting sensor placement under simplified river transport assumptions}\label{demo-interpretation}
+The miniature worlds support reasoning about the objective, not general conclusions about river monitoring. Their main value is exposing trade-offs that a single aggregate score might conceal.
+\section{Consequences of distributing sensors across separate tributaries instead of a shared downstream reach}\label{demo-interpretation-diversity}
+Placing instruments on separate tributaries can reveal different source events earlier than a shared downstream instrument. The benefit depends on the observation window and on whether attribution matters to the intended decision.
+\subsection{The cost of delayed observations}\label{demo-interpretation-delay}
+A downstream backup trades warning time for redundancy. In the fictional model, both quantities are measurable. In a real deployment, the importance of a delay would depend on a response process that this document does not model.
+\begin{figure}[htbp]
+\centering
+\fbox{\begin{tabular}{ccc}
+Upstream observation & $\longrightarrow$ & Earlier warning \\
+Shared downstream observation & $\longrightarrow$ & Broader backup
+\end{tabular}}
+\caption{Two different benefits, not a universal ranking of sensor locations.}\label{demo-fig-tradeoff}
+\end{figure}
+\subsubsection{Warnings after the response deadline}\label{demo-interpretation-window}
+A warning arriving after a hypothetical response deadline may still contribute to retrospective diagnosis. The intended use therefore determines whether the same observation is considered timely, useful but late, or irrelevant.
+\section{Limits of the transport model}\label{demo-interpretation-limits}
+Constant travel times omit seasonal variation. Equal mixing weights omit unequal discharge. Independent availability masks omit shared power or communications failures. Each omission makes the example easier to inspect and less representative of a deployed network.
+\subsection{Mixing assumptions}\label{demo-interpretation-mixing}
+A real confluence can produce spatially uneven concentration. The single-value node representation assumes complete mixing immediately. Relaxing this assumption would require more than changing a caption or adding another candidate site.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{ll}
+\hline
+Simplification & Evidence needed before application \\
+\hline
+Fixed travel time & Repeated flow observations \\
+Equal site costs & Access and maintenance assessment \\
+Independent outages & Infrastructure dependency map \\
+\hline
+\end{tabular}
+\caption{Missing evidence that separates an illustrative graph exercise from deployment advice.}\label{demo-tab-limits}
+\end{table}
+\section{Reporting assumptions and results}\label{demo-interpretation-reporting}
+A useful report states which events were included, which readings were unavailable, and which assumptions determined arrival. The original fictional numbers here are labelled at their point of use to avoid implying an unperformed computational study.
+\subsection{Consistency checks}\label{demo-interpretation-checks}
+A reader should be able to distinguish a design choice, a mathematical consequence, and an empirical claim. This document supplies examples of the first two; it deliberately supplies no empirical river findings.

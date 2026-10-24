@@ -1,0 +1,68 @@
+html, body, #app { height: 100%; }
+body {
+    margin: 0;
+    padding: 0;
+    color: var(--vscode-foreground);
+    background: var(--vscode-sideBar-background);
+    font-family: var(--vscode-font-family);
+    font-size: var(--vscode-font-size);
+    -webkit-font-smoothing: antialiased;
+    --text: var(--vscode-foreground);
+    --muted: var(--vscode-descriptionForeground);
+    --surface: var(--vscode-sideBar-background);
+    --footer: var(--vscode-sideBarSectionHeader-background, var(--surface));
+    --hover: var(--vscode-list-hoverBackground);
+    --selected: var(--vscode-list-inactiveSelectionBackground);
+    --focus: var(--vscode-list-focusBackground, var(--hover));
+    --border: var(--vscode-tree-inactiveIndentGuidesStroke, var(--vscode-contrastBorder, var(--vscode-descriptionForeground)));
+    --rule: var(--vscode-sideBarSectionHeader-border, color-mix(in srgb, var(--text) 10%, transparent));
+    --grouped: color-mix(in srgb, var(--text) 4%, transparent);
+}
+.sidebar {
+    --rank-part: var(--text);
+    --rank-chapter: var(--text);
+    --rank-section: var(--text);
+    --rank-subsection: var(--text);
+    --rank-subsubsection: var(--text);
+    --rank-paragraph: var(--text);
+    --rank-subparagraph: var(--text);
+}
+body.vscode-light .sidebar {
+    --rank-part: var(--light-part);
+    --rank-chapter: var(--light-chapter);
+    --rank-section: var(--light-section);
+    --rank-subsection: var(--light-subsection);
+    --rank-subsubsection: var(--light-subsubsection);
+    --rank-paragraph: var(--light-paragraph);
+    --rank-subparagraph: var(--light-subparagraph);
+}
+body.vscode-dark .sidebar {
+    --rank-part: var(--dark-part);
+    --rank-chapter: var(--dark-chapter);
+    --rank-section: var(--dark-section);
+    --rank-subsection: var(--dark-subsection);
+    --rank-subsubsection: var(--dark-subsubsection);
+    --rank-paragraph: var(--dark-paragraph);
+    --rank-subparagraph: var(--dark-subparagraph);
+}
+/* High contrast uses native neutral foregrounds without changing saved colors. */
+body.vscode-high-contrast .sidebar,
+body.vscode-high-contrast-light .sidebar {
+    --rank-part: var(--text);
+    --rank-chapter: var(--text);
+    --rank-section: var(--text);
+    --rank-subsection: var(--text);
+    --rank-subsubsection: var(--text);
+    --rank-paragraph: var(--text);
+    --rank-subparagraph: var(--text);
+}
+.rank-color[data-rank='part'] { --node-color: var(--rank-part); }
+.rank-color[data-rank='chapter'] { --node-color: var(--rank-chapter); }
+.rank-color[data-rank='section'] { --node-color: var(--rank-section); }
+.rank-color[data-rank='subsection'] { --node-color: var(--rank-subsection); }
+.rank-color[data-rank='subsubsection'] { --node-color: var(--rank-subsubsection); }
+.rank-color[data-rank='paragraph'] { --node-color: var(--rank-paragraph); }
+.rank-color[data-rank='subparagraph'] { --node-color: var(--rank-subparagraph); }
+body.vscode-high-contrast .treeitem.current > .row,
+body.vscode-high-contrast-light .treeitem.current > .row { outline: 1px solid var(--vscode-contrastActiveBorder); outline-offset: -1px; }
+* { box-sizing: border-box; }

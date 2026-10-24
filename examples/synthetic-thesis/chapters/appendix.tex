@@ -1,0 +1,23 @@
+\chapter{Event ledger}\label{demo-appendix}
+This appendix supplies a hand-worked ledger for an imaginary three-node chain. It illustrates the bookkeeping convention without claiming to reproduce the separate illustrative comparison table.
+\section{A three-node transport example}\label{demo-appendix-chain}
+Node One drains to Node Two, which drains to Node Three. A pulse starts at Node One at tick zero and moves one edge each tick. There is no attenuation in this miniature case.
+\subsection{Recording arrivals at successive observation sites}\label{demo-appendix-arrivals}
+A sensor at Node Two records the pulse at tick one. A sensor at Node Three records it at tick two. With both readings available the first-observation delay is one tick, not the average of the two arrival ticks.
+\begin{table}[htbp]
+\centering
+\begin{tabular}{rlll}
+\hline
+Tick & Pulse location & Node Two sensor & Node Three sensor \\
+\hline
+0 & Node One & No arrival & No arrival \\
+1 & Node Two & Arrival & No arrival \\
+2 & Node Three & No new arrival & Arrival \\
+\hline
+\end{tabular}
+\caption{A literal three-tick ledger for one invented pulse.}\label{demo-tab-ledger}
+\end{table}
+\subsubsection{Missing first observations}\label{demo-appendix-missing}
+If the Node Two sensor is unavailable, the first observed arrival moves to tick two. Coverage remains one out of one when the final tick is two, but becomes zero out of one when the final tick is one.
+\section{Document provenance}\label{demo-appendix-provenance}
+All prose, diagrams, identifiers, and tables in this fixture are newly authored synthetic material. The source and compiled reading copy demonstrate project-wide navigation with the LaTeX TOC extension. Its outline is derived from source commands, not from the compiled PDF, and does not require a TeX build.
