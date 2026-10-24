@@ -8,7 +8,9 @@
 - Licensed all first-party material under MIT, Copyright (c) 2026 Adhithya Bhaskar; retained third-party notices unchanged.
 - Included the fictional eight-source thesis, its 54 headings and 12 floats, and one retained PDF under `examples/synthetic-thesis/`.
 - Added self-contained installation, design, and demonstration documentation, preserving source-numbering limits, platform boundaries, and prior verification provenance.
-- This preparation does not claim a Marketplace publication, normal-profile installation, or a new verification run. Results below describe earlier acceptance work.
+- Added the Lucide list-tree product icon, retaining upstream license notices.
+- Reverified a clean checkout: build/type checks, 90 regressions, 13 stable-editor host checks, isolated installed-VSIX navigation and appearance, all 66 synthetic source targets/compiled labels, and the rebuilt 20-page reading copy.
+- Inspected the 13-file VSIX; runtime bundles and generated notices remain byte-identical to the earlier accepted build. No Marketplace publication or normal-profile installation was performed.
 
 ### Privacy, bounded processing, and local packaging
 

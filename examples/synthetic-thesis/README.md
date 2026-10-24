@@ -40,8 +40,8 @@ This lets `latexmk` perform the passes needed for contents, lists, and labels. I
 
 Review `build/main.pdf` before replacing `synthetic-thesis.pdf`. Keep only that retained PDF as the public reading copy: `build/`, logs, auxiliary files, recorder files, and SyncTeX output are excluded by the local `.gitignore`. The retained PDF is a snapshot, not an automatic live build; editing a source does not update it.
 
-## Prior evidence and sharing
+## Verification and sharing
 
-Before public-release preparation, the fixture compiled with TeX Live 2026 into a 20-page PDF. The 2026-10-21 wording revision retained 54 headings and 12 floats, with source anchors and compiled-label numbers checked. These are historical results, not a claim that the public checkout has just been compiled again. Extension navigation and compatibility evidence is recorded separately in the [repository README](../../README.md#prior-verification-evidence).
+Release verification rebuilt the example from a clean checkout with TeX Live 2026 into a 20-page PDF. Its extracted text exactly matched the retained reading copy. All 66 heading/caption records matched their source-line targets and compiled label numbers; the production parser reported eight sources, 54 headings, 12 floats, and no diagnostics. PDF metadata contained TeX/pdfTeX producer fields, with no JavaScript or forms. Extension navigation and compatibility evidence is recorded separately in the [repository README](../../README.md#release-verification).
 
 For recordings, use the isolated fixture workspace described in the walkthrough. Review window titles, recent files, notifications, terminal output, visible paths, and PDF metadata before sharing. The fictional fixture makes a reproducible demonstration possible without requiring anyone's private manuscript.

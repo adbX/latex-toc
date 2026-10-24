@@ -4,7 +4,7 @@ LaTeX TOC provides a project-wide LaTeX outline in VS Code's Explorer. Navigate 
 
 The sidebar separates headings from figures/tables and offers chapter filtering, hover inspection, configurable indentation, rank visibility, custom heading commands, palettes, and individual color overrides. Numbers are **source-derived**, not a promise to reproduce a compiled PDF's TOC.
 
-Source and issues: [adbX/latex-toc](https://github.com/adbX/latex-toc). The initial supported environment is **local desktop VS Code on macOS, version 1.85.0 or newer**. Prior acceptance covered 1.85.0 and stable 1.143.0; other platforms, remote/browser hosts, virtual workspaces, Restricted Mode, and native screen-reader compatibility are not supported claims. See [limitations](docs/backend.md#unsupported-constructs-and-compatibility-limits), [design decisions](docs/design.md), and the [reproducible walkthrough](docs/demo.md).
+Source and issues: [adbX/latex-toc](https://github.com/adbX/latex-toc). The initial supported environment is **local desktop VS Code on macOS, version 1.85.0 or newer**. Acceptance covered 1.85.0 and stable 1.143.0; other platforms, remote/browser hosts, virtual workspaces, Restricted Mode, and native screen-reader compatibility are not supported claims. See [limitations](docs/backend.md#unsupported-constructs-and-compatibility-limits), [design decisions](docs/design.md), and the [reproducible walkthrough](docs/demo.md).
 
 ## Build and install locally
 
@@ -110,11 +110,17 @@ Headings omit numerical prefixes in rows; the content-sized footer retains type,
 - Collapse all and Expand all affect only the current chapter when filtered, preserve hidden chapters' expansion state, and never change selection. Both are disabled in Figures and tables.
 - Hiding and reopening the view restores valid session state without moving keyboard focus. Hover and popovers are transient. Reloading the window starts fresh navigation and view state; persisted settings and explicit root choices remain.
 
-The sidebar inherits VS Code fonts, zoom, and surface tokens. The built-in palette provides light colors and a Balanced dark branch. Both high-contrast theme classes use VS Code's native foreground instead of rank colors, including explicit overrides. Structure, weight, selection, and focus remain independent of color. The three inline Lucide glyphs retain their [license notices](third-party/Lucide-LICENSE.txt).
+The sidebar inherits VS Code fonts, zoom, and surface tokens. The built-in palette provides light colors and a Balanced dark branch. Both high-contrast theme classes use VS Code's native foreground instead of rank colors, including explicit overrides. Structure, weight, selection, and focus remain independent of color. The three inline Lucide glyphs and the list-tree product icon retain their [license notices](third-party/Lucide-LICENSE.txt).
+
+### Release verification
+
+Clean-checkout release verification passed the Svelte/TypeScript build with zero errors or warnings and all 90 deterministic regressions. All 13 navigation-host checks passed on macOS with VS Code 1.143.0. The installed VSIX, without development extensions, exercised cross-file headings and captions, unsaved updates, caret following and pinning, full ancestry, and a palette import that preserved an individual override and selection.
+
+The eight-source example produced 54 headings, 12 floats, and no diagnostics. All 66 source targets and compiled label numbers matched. Its rebuilt 20-page PDF had the same extracted text as the retained copy. The actual VSIX contained 11 extension payload files and two metadata files, with no example, screenshot, profile, or development dependency. Runtime bundles and generated notices are byte-identical to the earlier accepted build.
 
 ### Prior verification evidence
 
-The following results predate public-release preparation; they are not claims that this checkout has just been reverified. The build type-checks Svelte and TypeScript before bundling local assets. All 90 deterministic regressions passed in the prior acceptance run. Navigation, appearance-state retention, root-specific configuration, aliases, and oversized unsaved-source recovery passed on macOS at VS Code 1.85.0 and 1.143.0. Separate host processes verified remembered roots and rejected obsolete pending disk reads.
+The following results describe earlier acceptance. All 90 deterministic regressions passed in that run. Navigation, appearance-state retention, root-specific configuration, aliases, and oversized unsaved-source recovery passed on macOS at VS Code 1.85.0 and 1.143.0. Separate host processes verified remembered roots and rejected obsolete pending disk reads.
 
 The installed VSIX was exercised in an isolated 1.143.0 profile without development extensions: cross-file heading/caption navigation, subsequent caret following, unsaved edits, literal HTML-like titles, and loading, empty, malformed, ambiguous-root, and missing-palette states. Inspected light, dark, high-contrast dark/light captures cover a 297 CSS-pixel sidebar and 120% zoom. Keyboard focus remained independent of source selection; Chromium accessibility metadata exposed names, levels, expansion, and current selection. This is not a native screen-reader compatibility claim.
 
